@@ -1,0 +1,34 @@
+.card-container {
+    perspective: 1000px; /* Añade perspectiva para el efecto 3D */
+    width: 32%; /* Ajusta el tamaño según tu diseño */
+    height: 300px; /* Mantiene la altura original */
+  }
+  
+  .card {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    transition: transform 0.8s; /* Duración del giro */
+    transform-style: preserve-3d; /* Mantiene la parte frontal y trasera en su lugar durante el giro */
+    cursor: pointer; /* Cambia el cursor al pasar sobre la tarjeta */
+  }
+  
+  .card-container:hover .card {
+    transform: rotateY(180deg); /* Gira la tarjeta 180 grados en el eje Y */
+  }
+  
+  .card-front, .card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden; /* Oculta la cara trasera cuando no está frente a la cámara */
+    border-radius: 30px; /* Bordes redondeados para la tarjeta */
+  }
+  
+  .card-back {
+    transform: rotateY(180deg); /* Gira la parte trasera para que esté boca abajo inicialmente */
+    display: flex; /* Asegura que el contenido esté centrado */
+    align-items: center;
+    justify-content: center;
+    background-color: white; /* Fondo blanco para la parte trasera */
+  }
