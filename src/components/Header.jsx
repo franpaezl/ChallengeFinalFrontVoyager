@@ -1,53 +1,59 @@
-import React from 'react'
-import logo from "../assets/logo.png"
-
+import React from 'react';
+import { Link } from 'react-router-dom'; // Importar Link
+import logo from "../assets/logo.png";
+import CustomerButton from './CustomerButton';
 
 const Header = () => {
   return (
-<header className="w-[100%] bg-[#E6BB4D] p-[30px]">
-  <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
-    <div className="flex h-16 items-center justify-between">
-      {/* Logo */}
-      <div className="flex-shrink-0">
-        <a className="block text-teal-600" href="#">
-          <img src={logo} alt="logo" className="w-[120px]" />
-        </a>
+    <header className="z-10 absolute w-full p-[30px] mt-[2px] ">
+      <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-[#0F1D15] border-[#E6BB4D] border-2 rounded-lg">
+        <div className="flex h-16 items-center justify-between">
+          {/* Logo */}
+          <div className="flex-shrink-0">
+            <Link className="block text-teal-600" to="/">
+              <img src={logo} alt="logo" className="w-[120px]" />
+            </Link>
+          </div>
+
+          {/* Navegación centrada */}
+          <nav aria-label="Global" className="hidden md:flex md:justify-center flex-1">
+            <ul className="flex items-center gap-6 text-lg">
+              <li className="transition transform hover:scale-125">
+                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/menu">Menu</Link>
+              </li>
+              <li className="transition transform hover:scale-125">
+                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/pedidos">Pedidos</Link>
+              </li>
+              <li className="transition transform hover:scale-125">
+                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/reseña">Reseña</Link>
+              </li>
+              <li className="transition transform hover:scale-125">
+                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/dfasdas">dfasdas</Link>
+              </li>
+            </ul>
+          </nav>
+
+          {/* Botones de Login y Register */}
+          <div className="flex items-center gap-4">
+          <CustomerButton 
+              text="Login" 
+              onClick={() => console.log('Login clicked!')}
+              textColor="text-[#0F1D15]" // Cambia al color deseado
+              bgColor="bg-[#E6BB4D]" // Cambia al color de fondo deseado
+              hoverBgColor="bg-[#FFD700]" // Cambia al color de fondo en hover deseado
+            />
+            <CustomerButton
+              text="Register" 
+              onClick={() => console.log('Register clicked!')}
+              textColor="text-[#0F1D15]" // Cambia al color deseado
+              bgColor="bg-[#E6BB4D]" // Cambia al color de fondo deseado
+              hoverBgColor="bg-[#FFD700]" // Cambia al color de fondo en hover deseado
+            />
+          </div>
+        </div>
       </div>
-
-      {/* Navigation centered */}
-      <nav aria-label="Global" className="hidden md:flex md:justify-center flex-1">
-        <ul className="flex items-center gap-6 text-sm">
-          <li>
-            <a className="text-[#92251E] text-lg font-semibold transition hover:text-red-500" href="#">Menu</a>
-          </li>
-          <li>
-            <a className="text-[#92251E] text-lg font-semibold transition hover:text-red-500" href="#">Pedidos</a>
-          </li>
-          <li>
-            <a className="text-[#92251E] text-lg font-semibold transition hover:text-red-500" href="#">Reseña</a>
-          </li>
-          <li>
-            <a className="text-[#92251E] text-lg font-semibold transition hover:text-red-500" href="#">dfasdas</a>
-          </li>
-        </ul>
-      </nav>
-
-      {/* Register and Login buttons */}
-      <div className="flex items-center gap-4">
-        <a className="rounded-md bg-[#92251E] px-5 py-2.5 text-sm font-medium text-white shadow" href="#">
-          Login
-        </a>
-        <a className="rounded-md bg-[#92251E] px-5 py-2.5 text-sm font-medium text-white" href="#">
-          Register
-        </a>
-      </div>
-    </div>
-  </div>
-</header>
-
-
-)
-
+    </header>
+  );
 }
 
 export default Header;

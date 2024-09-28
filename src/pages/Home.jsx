@@ -1,9 +1,13 @@
 import React from 'react'
+import Carrousel from '../components/Carrousel'
+import Menu from '../components/Menu'
 
 const home = () => {
   return (
-    <div>
-      <h1>Home</h1>
+    <div className='flex flex-col gap-[50px]'>
+      <Carrousel/>
+      <Menu/>
+      
     </div>
   )
 }
