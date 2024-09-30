@@ -7,6 +7,8 @@ const home = () => {
     <div className='flex flex-col gap-[50px]'>
       <Carrousel/>
       <Menu/>
+    
+      
       
     </div>
   )
