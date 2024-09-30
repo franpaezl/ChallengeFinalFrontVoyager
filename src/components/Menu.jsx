@@ -23,7 +23,7 @@ import cheeseBurger1 from "../assets/menuImages/cheeseBuger1.png"
 
 
 const imageMap = {
-  "Oklahoma": oklahoma1,
+  "Oklahoma": "https://res.cloudinary.com/dhojn5eon/image/upload/v1727723685/big-sandwich-hamburger-burger-with-beef-red-onion-tomato-fried-bacon_lthzrk.jpg",
   "American": american1,
   "Voyager": cheeseBurger1,
   "Cheeseburger": voyager1,
@@ -109,7 +109,7 @@ const Menu = () => {
               name={hamburguer.name} 
               description={hamburguer.description} // Passing the description
               price={hamburguer.price} // Passing the price
-              backgroundPosition="50% 100%"
+              // backgroundPosition="50% 100%"
               backgroundImage={imageMap[hamburguer.name]} 
               typeIcon={iconMap[hamburguer.category]} // Passing the category icon
             />
