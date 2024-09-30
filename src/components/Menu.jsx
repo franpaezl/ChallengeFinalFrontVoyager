@@ -11,14 +11,25 @@ import drink from "../assets/soft-drink.png";  // Icon for drinks
 import burger from "../assets/burger.png";     // Icon for hamburgers
 import fries from "../assets/potato-fries.png"; // Icon for sides
 
+
+
+import prueba from "../assets/menuImages/pruebaBurger.jpg"
+import oklahoma1 from "../assets/menuImages/oklahoma1.png"
+import american1 from "../assets/menuImages/american1.png"
+import voyager1 from "../assets/menuImages/voyager1.png"
+import cheeseBurger1 from "../assets/menuImages/cheeseBuger1.png"
+
+
+
+
 const imageMap = {
-  "Oklahoma": olkahoma,
-  "American": american,
-  "Voyager": cheeseburguer,
-  "Cheeseburger": cheeseburguer,
+  "Oklahoma": oklahoma1,
+  "American": american1,
+  "Voyager": cheeseBurger1,
+  "Cheeseburger": voyager1,
   "Cheddar Bacon Fries": papas,
-  "Veggie Burger": vegana,
-  "Coca": coca
+  "Veggie Burger": prueba,
+  "Coca": prueba
 };
 
 // Map for icons based on the category
@@ -109,7 +120,7 @@ const Menu = () => {
       {/* Render Drinks */}
      
 
-      <div className='flex flex-wrap justify-between w-full'>
+      {/* <div className='flex flex-wrap justify-between w-full'>
         {sides.map((side) => (
           <FoodCards 
             key={side.name}
@@ -121,9 +132,9 @@ const Menu = () => {
             typeIcon={iconMap[side.category]} 
           />
         ))}
-      </div>
+      </div> */}
 
-      <div className='flex flex-wrap justify-between w-full'>
+      {/* <div className='flex flex-wrap justify-between w-full'>
         {drinks.map((drink) => (
           <FoodCards 
             key={drink.name}
@@ -135,7 +146,7 @@ const Menu = () => {
             typeIcon={iconMap[drink.category]} 
           />
         ))}
-      </div>
+      </div> */}
     </div>
   );
 }
