@@ -34,7 +34,7 @@ function Login() {
                     <X size={24} />
                 </motion.button>
                 <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">Te estamos esperando</h2>
-                <h1 className="text-3xl font-bold text-center text-white mb-6">Reservá en R&F</h1>
+                <h1 className="text-3xl font-bold text-center text-white mb-6">Reservá en VOYAGER</h1>
                 <div className="flex justify-center space-x-4 mb-6">
                     <motion.button
                         whileHover={{ scale: 1.05 }}
