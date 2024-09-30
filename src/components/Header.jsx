@@ -35,6 +35,7 @@ const Header = () => {
 
           {/* Botones de Login y Register */}
           <div className="flex items-center gap-4">
+            <Link to="/login" >
           <CustomerButton 
               text="Login" 
               onClick={() => console.log('Login clicked!')}
@@ -42,6 +43,8 @@ const Header = () => {
               bgColor="bg-[#E6BB4D]" // Cambia al color de fondo deseado
               hoverBgColor="bg-[#FFD700]" // Cambia al color de fondo en hover deseado
             />
+            </Link>
+            <Link to="/register">
             <CustomerButton
               text="Register" 
               onClick={() => console.log('Register clicked!')}
@@ -49,6 +52,7 @@ const Header = () => {
               bgColor="bg-[#E6BB4D]" // Cambia al color de fondo deseado
               hoverBgColor="bg-[#FFD700]" // Cambia al color de fondo en hover deseado
             />
+            </Link>
           </div>
         </div>
       </div>
