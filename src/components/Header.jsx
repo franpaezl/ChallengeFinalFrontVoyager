@@ -19,7 +19,7 @@ const Header = () => {
           <nav aria-label="Global" className="hidden md:flex md:justify-center flex-1">
             <ul className="flex items-center gap-6 text-lg">
               <li className="transition transform hover:scale-125">
-                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/menu">Menu</Link>
+                <Link to="/admin" className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]">Menu</Link>
               </li>
               <li className="transition transform hover:scale-125">
                 <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/pedidos">Pedidos</Link>

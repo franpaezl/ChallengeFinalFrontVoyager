@@ -3,7 +3,7 @@ import React from 'react';
 const Button = ({ onClick, text, backgroundColor, borderColor, arrowColor }) => {
   return (
     <div
-      className={`group relative inline-flex items-center overflow-hidden rounded border-2  ${borderColor} px-8 py-3 ${backgroundColor} focus:outline-none focus:ring active:text-red-500`}
+      className={`group relative inline-flex items-center overflow-hidden rounded border-2 ${borderColor} px-8 py-3 ${backgroundColor} focus:outline-none focus:ring active:text-red-500`}
       onClick={onClick}
     >
       <span className="absolute -end-full transition-all group-hover:end-4">
@@ -28,3 +28,4 @@ const Button = ({ onClick, text, backgroundColor, borderColor, arrowColor }) => 
 };
 
 export default Button;
+  
