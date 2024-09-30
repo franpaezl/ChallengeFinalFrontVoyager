@@ -10,6 +10,7 @@ import Reservation from './pages/Reservation.jsx';
 
 import Register from './pages/Register.jsx';
 import ProductDetails from './pages/ProductDetails.jsx';
+import Cart from './pages/Cart.jsx';
 
 
 function App() {
@@ -27,6 +28,8 @@ function App() {
 
         <Route path='/register' element={<Register/>} />
         <Route path='/productDetails' element={<ProductDetails/>} />
+        <Route path='/cart' element={<Cart/>}/>
+
 
       </Routes>
     </BrowserRouter>
