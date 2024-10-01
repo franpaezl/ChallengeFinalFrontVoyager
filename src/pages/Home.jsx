@@ -9,6 +9,8 @@ import MapComponent from '../components/MapComponent'
 
 
 
+
+
 const home = () => {
   return (
     <div className='bgBody flex flex-col min-h-screen'>
@@ -16,10 +18,15 @@ const home = () => {
         <Carrousel />
         <Menu />
         <PopUpProductWindow/>
+
+      
+        
+
         <TimeInfoComponent/>
 
         <PublicityComponent/>
         <MapComponent/>
+
       </div>
     </div>
   )

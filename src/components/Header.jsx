@@ -22,7 +22,7 @@ const Header = () => {
                 <Link to="/menu" className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]">Menu</Link>
               </li>
               <li className="transition transform hover:scale-125">
-                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/pedidos">Pedidos</Link>
+                <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/deliveryadmin">Pedidos</Link>
               </li>
               <li className="transition transform hover:scale-125">
                 <Link className="text-[#E6BB4D] text-lg font-semibold transition hover:text-[#FFD700]" to="/reseña">Reseña</Link>
