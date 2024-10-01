@@ -47,7 +47,7 @@ function PopUpProductWindow() {
           variants={itemVariants}
         >
           <div className="w-full h-full flex items-center justify-center text-gray-500 text-2xl font-bold">
-            <img src="https://rockandfellers.com.ar/front/images/menu/005.jpg" alt="" />
+            <img src="https://res.cloudinary.com/doo0vem8r/image/upload/v1727725053/american1_u89gom.png" alt="" />
           </div>
         </motion.div>
 
