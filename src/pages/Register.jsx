@@ -1,5 +1,5 @@
 import React from 'react'
-import { ArrowRight } from 'lucide-react'
+import { ArrowRight,X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
 
@@ -64,20 +64,29 @@ function Register() {
                     </button>
                 </motion.p>
                 </Link>
+                <motion.button
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.9 }}
+                    className="absolute  right-[350px] top-[100px] text-gray-400 hover:text-white transition-colors duration-200"
+                >
+                    <Link to="/">
+                    <X size={24} />
+                    </Link>
+                </motion.button>
                 <form className="space-y-4">
                     <div className="grid grid-cols-2 gap-4">
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
                             type="text"
-                            placeholder="Nombre"
+                            placeholder="Name"
                             className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
                             type="text"
-                            placeholder="Apellido"
+                            placeholder="LastName"
                             className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                     </div>
@@ -85,15 +94,15 @@ function Register() {
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
-                            type="tel"
-                            placeholder="Teléfono con código de área"
+                            type="cel"
+                            placeholder="Cel "
                             className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
-                            type="tel"
-                            placeholder="Teléfono alternativo"
+                            type="cel"
+                            placeholder="Extras Cel"
                             className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                     </div>
@@ -109,7 +118,7 @@ function Register() {
                             variants={inputVariants}
                             whileFocus="focus"
                             type="password"
-                            placeholder="Contraseña"
+                            placeholder="Password"
                             className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
                         />
                     </div>
@@ -118,7 +127,7 @@ function Register() {
                         className="relative w-full p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
                     >
                         <span className="relative z-10 flex items-center justify-center">
-                            Registrarse
+                            Register
                             <ArrowRight size={20} className="ml-2" />
                         </span>
                         <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-500 transition-all duration-300 group-hover:h-full"></span>

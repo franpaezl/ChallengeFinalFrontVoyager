@@ -23,12 +23,12 @@ import cheeseBurger1 from "../assets/menuImages/cheeseBuger1.png"
 
 
 const imageMap = {
-  "Oklahoma": "https://res.cloudinary.com/dhojn5eon/image/upload/v1727723685/big-sandwich-hamburger-burger-with-beef-red-onion-tomato-fried-bacon_lthzrk.jpg",
-  "American": american1,
-  "Voyager": cheeseBurger1,
-  "Cheeseburger": voyager1,
+  "Oklahoma": "https://res.cloudinary.com/doo0vem8r/image/upload/v1727725204/oklahoma1_zh8x5r.png",
+  "American": "https://res.cloudinary.com/doo0vem8r/image/upload/v1727725053/american1_u89gom.png",
+  "Voyager": "https://res.cloudinary.com/doo0vem8r/image/upload/v1727725123/cheeseBuger1_id12mx.png",
+  "Cheeseburger": "https://res.cloudinary.com/doo0vem8r/image/upload/v1727725165/voyager1_zx4qdw.png",
   "Cheddar Bacon Fries": papas,
-  "Veggie Burger": prueba,
+  "Veggie Burger": "https://res.cloudinary.com/doo0vem8r/image/upload/v1727725245/pruebaBurger_v0y1kw.jpg",
   "Coca": prueba
 };
 
