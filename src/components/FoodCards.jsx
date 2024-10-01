@@ -26,7 +26,7 @@ const FoodCards = (props) => {
       >
         <div className='card-front flex flex-col items-center justify-center rounded-[20px] '>
           <div className='h-full w-full flex flex-col items-center justify-center  rounded-[30px] p-4'>
-            <h3 id='textShadow' className='text-[40px] text-white font-extrabold mb-2 border-b text-3d'>{props.name}</h3>
+            <h3 id='textShadow' className='text-[40px] text-white text-center font-extrabold mb-2 border-b text-3d'>{props.name}</h3>
           </div>
         </div>
         <div className='card-back flex flex-col items-center gap-[10px] justify-center bg-white rounded-[50px] p-4'>
