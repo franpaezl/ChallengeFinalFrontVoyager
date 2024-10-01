@@ -3,6 +3,8 @@ import ReservationComponent from '../components/ReservationComponent'
 import { Calendar, Clock, Users, MapPin, Utensils, Sun, Moon, ArrowRight } from 'lucide-react';
 import ButtonWaveEffect from '../components/ButtonWaveEffect';
 import "./Reservation.css"
+import ComponenteMesaPrueba from '../components/ComponenteMesaPrueba'
+
 
 function Reservation() {
 
@@ -58,6 +60,7 @@ function Reservation() {
       <ReservationComponent sector={sector} />
       <div className='mb-[50px]'>
        <ButtonWaveEffect />
+       <ComponenteMesaPrueba/>
       </div>
       {/* <button
         className="relative w-[200px] h-[70px] p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
