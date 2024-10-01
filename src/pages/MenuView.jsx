@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import FoodCards from "../components/FoodCards";
 import drink from "../assets/soft-drink.png"; // Icon for drinks
 import burger from "../assets/burger.png"; // Icon for hamburgers
 import fries from "../assets/potato-fries.png"; // Icon for sides
+import dessertsIcon from "../assets/cake_icon.png"
 import { div } from "framer-motion/client";
 import "./MenuView.css"
 
@@ -16,6 +17,7 @@ const iconMap = {
     burger: burger,
     drink: drink,
     frying: fries,
+    dessert: dessertsIcon,
 };
 
 function MenuView() {
@@ -186,13 +188,121 @@ function MenuView() {
     let drinks = products.filter((product) => product.category === "drink");
     let desserts = products.filter((product) => product.category === "dessert");
 
+    const [selectedAll, setSelectedAll] = useState('bg-yellow-500')
+    const [selectedBurger, setSelectedBurger] = useState('bg-white')
+    const [selectedFries, setSelectedFries] = useState('bg-white')
+    const [selectedDrink, setSelectedDrink] = useState('bg-white')
+    const [selectedDesserts, setSelectedDesserts] = useState('bg-white')
+
+    const [showDivAll, setShowDivAll] = useState('')
+    const [showDivBurger, setShowDivBurger] = useState('')
+    const [showDivFries, setShowDivFries] = useState('')
+    const [showDivDrink, setShowDivDrink] = useState('')
+    const [showDivDesserts, setShowDivDesserts] = useState('')
+
     return (
         <div className="bground flex flex-col min-h-screen">
             <div className=" mb-[70px] mt-[150px]">
                 <div className=" flex flex-col gap-[20px] mx-[20px] justify-center items-center">
 
+                    <div className="flex flex-row gap-[20px]">
+                        <button className=" " onClick={() => {
+                            setSelectedBurger('bg-white')
+                            setSelectedFries('bg-white')
+                            setSelectedDrink('bg-white')
+                            setSelectedDesserts('bg-white')
+                            setSelectedAll('bg-yellow-500')
 
-                    <div className={`mb-[100px]`}>
+                            setShowDivBurger('')
+                            setShowDivFries('')
+                            setShowDivDrink('')
+                            setShowDivDesserts('')
+                        }}>
+                            <div>
+                                <div className={`shadowButton ${selectedAll} p-[6px] w-[60px] flex flex-col items-center justify-center h-[60px] rounded-[20px]`}>
+                                    <h1 className="text-[25px] font-extrabold">ALL</h1>
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onClick={() => {
+                            setSelectedAll('bg-white')
+                            setSelectedFries('bg-white')
+                            setSelectedDrink('bg-white')
+                            setSelectedDesserts('bg-white')
+                            setSelectedBurger('bg-yellow-500')
+
+                            setShowDivBurger('')
+                            setShowDivFries('hidden')
+                            setShowDivDrink('hidden')
+                            setShowDivDesserts('hidden')
+                        }}>
+                            <div>
+                                <div className={`shadowButton ${selectedBurger} p-[6px] w-[60px] rounded-[20px]`}>
+                                    <img src={burger} alt="" />
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onClick={() => {
+                            setSelectedBurger('bg-white')
+                            setSelectedAll('bg-white')
+                            setSelectedDrink('bg-white')
+                            setSelectedDesserts('bg-white')
+                            setSelectedFries('bg-yellow-500')
+
+                            setShowDivBurger('hidden')
+                            setShowDivFries('')
+                            setShowDivDrink('hidden')
+                            setShowDivDesserts('hidden')
+                        }}>
+                            <div>
+                                <div className={`shadowButton ${selectedFries} p-[6px] w-[60px] rounded-[20px]`}>
+                                    <img src={fries} alt="" />
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onClick={() => {
+                            setSelectedBurger('bg-white')
+                            setSelectedFries('bg-white')
+                            setSelectedAll('bg-white')
+                            setSelectedDesserts('bg-white')
+                            setSelectedDrink('bg-yellow-500')
+
+                            setShowDivBurger('hidden')
+                            setShowDivFries('hidden')
+                            setShowDivDrink('')
+                            setShowDivDesserts('hidden')
+                        }}>
+                            <div>
+                                <div className={`shadowButton ${selectedDrink} p-[6px] w-[60px] rounded-[20px]`}>
+                                    <img src={drink} alt="" />
+                                </div>
+                            </div>
+                        </button>
+
+                        <button onClick={() => {
+                            setSelectedBurger('bg-white')
+                            setSelectedFries('bg-white')
+                            setSelectedDrink('bg-white')
+                            setSelectedAll('bg-white')
+                            setSelectedDesserts('bg-yellow-500')
+
+                            setShowDivBurger('hidden')
+                            setShowDivFries('hidden')
+                            setShowDivDrink('hidden')
+                            setShowDivDesserts('')
+                        }}>
+                            <div>
+                                <div className={`shadowButton ${selectedDesserts} p-[6px] w-[60px] rounded-[20px]`}>
+                                    <img src={dessertsIcon} alt="" />
+                                </div>
+                            </div>
+                        </button>
+                    </div>
+
+                    <div className={`${showDivBurger} mb-[100px]`}>
                         <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">BURGERS</h1>
                         <div className="gaga flex flex-wrap gap-[40px] w-full justify-center">
                             {burgers.map((hamburguer) => (
@@ -211,52 +321,52 @@ function MenuView() {
 
                     {/* Render Drinks */}
 
-                    <div className={`mb-[100px]`}>
-                    <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">FRIED</h1>
-                    <div className='flex flex-wrap gap-[40px] justify-center w-full'>
-                        {frying.map((side) => (
-                            <FoodCards
-                                key={side.name}
-                                name={side.name}
-                                description={side.description}
-                                price={side.price}
-                                backgroundImage={side.img}
-                                typeIcon={iconMap[side.category]}
-                            />
-                        ))}
-                    </div>
-                    </div>
-
-                    <div className={`mb-[100px]`}>
-                    <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">DRINKS</h1>
-                    <div className='flex flex-wrap gap-[40px] justify-center w-full '>
-                        {drinks.map((drink) => (
-                            <FoodCards
-                                key={drink.name}
-                                name={drink.name}
-                                description={drink.description}
-                                price={drink.price}
-                                backgroundImage={drink.img}
-                                typeIcon={iconMap[drink.category]}
-                            />
-                        ))}
-                    </div>
+                    <div className={`${showDivFries} mb-[100px]`}>
+                        <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">FRIED</h1>
+                        <div className='flex flex-wrap gap-[40px] justify-center w-full'>
+                            {frying.map((side) => (
+                                <FoodCards
+                                    key={side.name}
+                                    name={side.name}
+                                    description={side.description}
+                                    price={side.price}
+                                    backgroundImage={side.img}
+                                    typeIcon={iconMap[side.category]}
+                                />
+                            ))}
+                        </div>
                     </div>
 
-                    <div>
-                    <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">DESSERTS</h1>
-                    <div className='flex flex-wrap gap-[40px] justify-center w-full '>
-                        {desserts.map((dessert) => (
-                            <FoodCards
-                                key={dessert.name}
-                                name={dessert.name}
-                                description={dessert.description}
-                                price={dessert.price}
-                                backgroundImage={dessert.img}
-                                typeIcon={iconMap[dessert.category]}
-                            />
-                        ))}
+                    <div className={`${showDivDrink} mb-[100px]`}>
+                        <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">DRINKS</h1>
+                        <div className='flex flex-wrap gap-[40px] justify-center w-full '>
+                            {drinks.map((drink) => (
+                                <FoodCards
+                                    key={drink.name}
+                                    name={drink.name}
+                                    description={drink.description}
+                                    price={drink.price}
+                                    backgroundImage={drink.img}
+                                    typeIcon={iconMap[drink.category]}
+                                />
+                            ))}
+                        </div>
                     </div>
+
+                    <div className={`${showDivDesserts}`}>
+                        <h1 className="shadow text-[50px] text-yellow-500 text-center font-extrabold mb-[40px]">DESSERTS</h1>
+                        <div className='flex flex-wrap gap-[40px] justify-center w-full '>
+                            {desserts.map((dessert) => (
+                                <FoodCards
+                                    key={dessert.name}
+                                    name={dessert.name}
+                                    description={dessert.description}
+                                    price={dessert.price}
+                                    backgroundImage={dessert.img}
+                                    typeIcon={iconMap[dessert.category]}
+                                />
+                            ))}
+                        </div>
                     </div>
 
                 </div>
