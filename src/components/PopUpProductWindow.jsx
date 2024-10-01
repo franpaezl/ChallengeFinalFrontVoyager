@@ -92,10 +92,10 @@ function PopUpProductWindow() {
 
           <motion.div className="flex space-x-4" variants={itemVariants}>
             <button className="w-1/2 p-3 bg-yellow-500 text-gray-900 rounded-lg font-bold hover:bg-yellow-400 transition-colors duration-200">
-              confirmar
+              Confirmar
             </button>
             <button className="w-1/2 p-3 bg-gray-700 text-white rounded-lg font-bold hover:bg-gray-600 transition-colors duration-200">
-              CANCELAR
+              Cancelar
             </button>
           </motion.div>
         </div>

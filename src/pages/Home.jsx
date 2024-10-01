@@ -6,6 +6,8 @@ import PopUpProductWindow from '../components/PopUpProductWindow'
 
 
 
+
+
 const home = () => {
   return (
     <div className='bgBody flex flex-col min-h-screen'>
@@ -14,6 +16,8 @@ const home = () => {
         <Carrousel />
         <Menu />
         <PopUpProductWindow/>
+      
+        
       </div>
     </div>
   )
