@@ -4,6 +4,8 @@ import { Calendar, Clock, Users, MapPin, Utensils, Sun, Moon, ArrowRight } from 
 import ButtonWaveEffect from '../components/ButtonWaveEffect';
 import "./Reservation.css"
 import ComponenteMesaPrueba from '../components/ComponenteMesaPrueba'
+import TablePB from '../components/TablePB';
+import PruebaMesa from '../components/PruebaMesa';
 
 
 function Reservation() {
@@ -61,6 +63,7 @@ function Reservation() {
       <div className='mb-[50px]'>
        <ButtonWaveEffect />
        <ComponenteMesaPrueba/>
+       <TablePB/>
       </div>
       {/* <button
         className="relative w-[200px] h-[70px] p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
