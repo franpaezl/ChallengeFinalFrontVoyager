@@ -8,6 +8,7 @@ const Header = () => {
   return (
     <header className="z-10 absolute w-full p-[30px] mt-[2px] ">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-[#0F1D15] border-[#E6BB4D] border-2 rounded-lg">
+        
         <div className="flex h-16 items-center justify-between">
           {/* Logo */}
           <div className="flex-shrink-0">

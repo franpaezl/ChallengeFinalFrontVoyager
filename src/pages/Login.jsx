@@ -101,6 +101,11 @@ function Login() {
         } catch (error) {
             console.error(error.response ? error.response.data : error.message);
             let erroMessage = error.response ? error.response.data : error.message;
+            setMessageErrorInput('')
+            setShowInputErrorEmail('hidden')
+            setShowInputPassword('hidden')
+            setColorErrorInputEmail('')
+            setColorErrorInputPassword('')
             if (erroMessage.includes("Email or Password invalid")) {
                 console.log("Entra?")
                 setMessageShowPopUpAlert(
@@ -114,15 +119,53 @@ function Login() {
                 setShowPopUpAlert("");
                 setLink("");
             }
-            if (erroMessage.includes("Email can")) {
+            if (erroMessage.includes("Email can not be empty")) {
                 setMessageErrorInput(erroMessage)
                 setShowInputErrorEmail('')
                 setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
             }
-            if (erroMessage.includes("Password can")) {
+            if (erroMessage.includes("Invalid email format")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. It must")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. Please enter")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. Please provide")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Email not registered")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Password")) {
                 setMessageErrorInput(erroMessage)
                 setShowInputPassword('')
                 setColorErrorInputPassword('border-2  border-[red]')
+                setColorErrorInputPassword('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid password")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputPassword('')
+                setColorErrorInputPassword('border-2  border-[red]')
+                setColorErrorInputPassword('border-2 border-red-600')
             }
         }
     };
@@ -156,20 +199,11 @@ function Login() {
                 <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">Te estamos esperando</h2>
                 <h1 className="text-3xl font-bold text-center text-white mb-6">Reservá en VOYAGER</h1>
                 <div className="flex justify-center space-x-4 mb-6">
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`text-sm transition-colors duration-200 ${activeTab === 'login' ? 'text-yellow-500' : 'text-gray-400'}`}
-                        onClick={() => setActiveTab('login')}
-                    >
-                        ¿Ya tenes cuenta? Ingresá
-                    </motion.button>
                     <Link to="/register">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`text-sm transition-colors duration-200 ${activeTab === 'register' ? 'text-yellow-500' : 'text-gray-400'}`}
-                        // onClick={() => setActiveTab('/register')}
+                            className={`text-sm text-gray-400 transition-colors duration-200 hover:text-yellow-500`}
                         >
                             ¿Aún no tenes una cuenta? Registrate
                         </motion.button>
@@ -187,7 +221,7 @@ function Login() {
                                 whileFocus="focus"
                                 type="text"
                                 placeholder="Email"
-                                className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                className={`${colorErrorInputEmail} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value)
@@ -204,10 +238,12 @@ function Login() {
                                 whileFocus="focus"
                                 type="password"
                                 placeholder="Contraseña"
-                                className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                className={`${colorErrorInputPassword} w-full p-3 bg-gray-700 text-white  rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
+                                    setShowInputPassword('hidden')
+                                    setColorErrorInputPassword('')
                                 }}
                             />
                             <p className={`${showInputPassword} text-[red] text-[17px] bg-white border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}> &#10071;{messageErrorInput}</p>
