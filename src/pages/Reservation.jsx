@@ -5,7 +5,7 @@ import ButtonWaveEffect from '../components/ButtonWaveEffect';
 import "./Reservation.css"
 import ComponenteMesaPrueba from '../components/ComponenteMesaPrueba'
 import TablePB from '../components/TablePB';
-import PruebaMesa from '../components/PruebaMesa';
+import TableOutDoor from '../components/TableOutDoor';
 
 
 function Reservation() {
@@ -64,6 +64,7 @@ function Reservation() {
        <ButtonWaveEffect />
        <ComponenteMesaPrueba/>
        <TablePB/>
+       <TableOutDoor/>
       </div>
       {/* <button
         className="relative w-[200px] h-[70px] p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
