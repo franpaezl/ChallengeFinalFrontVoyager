@@ -2,10 +2,21 @@ import React from 'react';
 import { Link, useLocation } from 'react-router-dom'; // Importar Link
 import logo from "../assets/logo.png";
 import CustomerButton from './CustomerButton';
+import { useDispatch, useSelector } from "react-redux";
+
 
 const Header = () => {
   const location = useLocation();
+  const { isLoggedIn } = useSelector(
+    (state) => state.auth
+  );
+
+  console.log(isLoggedIn);
+  
   return (
+
+  
+    
     <header className="z-10 absolute w-full p-[30px] mt-[2px] ">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-[#0F1D15] border-[#E6BB4D] border-2 rounded-lg">
         <div className="flex h-16 items-center justify-between">
@@ -73,6 +84,8 @@ const Header = () => {
         </div>
       </div>
     </header>
+
+    
   );
 }
 
