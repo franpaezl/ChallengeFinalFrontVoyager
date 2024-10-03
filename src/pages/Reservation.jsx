@@ -4,6 +4,8 @@ import { Calendar, Clock, Users, MapPin, Utensils, Sun, Moon, ArrowRight } from 
 import ButtonWaveEffect from '../components/ButtonWaveEffect';
 import "./Reservation.css"
 import ComponenteMesaPrueba from '../components/ComponenteMesaPrueba'
+import TablePB from '../components/TablePB';
+import TableOutDoor from '../components/TableOutDoor';
 
 
 function Reservation() {
@@ -59,8 +61,11 @@ function Reservation() {
       </div>
       {/* <ReservationComponent sector={sector} /> */}
       <div className='mb-[50px]'>
-        <ComponenteMesaPrueba />
-        <ButtonWaveEffect />
+
+       <ButtonWaveEffect />
+       <ComponenteMesaPrueba/>
+       <TablePB/>
+       <TableOutDoor/>
 
       </div>
       {/* <button
