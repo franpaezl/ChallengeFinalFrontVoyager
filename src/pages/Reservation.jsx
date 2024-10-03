@@ -59,12 +59,14 @@ function Reservation() {
           </div>
         </div>
       </div>
-      <ReservationComponent sector={sector} />
+      {/* <ReservationComponent sector={sector} /> */}
       <div className='mb-[50px]'>
+
        <ButtonWaveEffect />
        <ComponenteMesaPrueba/>
        <TablePB/>
        <TableOutDoor/>
+
       </div>
       {/* <button
         className="relative w-[200px] h-[70px] p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"

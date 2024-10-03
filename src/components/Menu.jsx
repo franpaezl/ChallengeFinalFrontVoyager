@@ -98,9 +98,9 @@ const Menu = () => {
 
   return (
     <div className='flex flex-col gap-[20px] mx-[20px] justify-center items-center'>
-      <h2 className='text-white font-bold text-[50px]'>Menu</h2>
+      {/* <h2 className='text-white font-bold text-[50px]'>Menu</h2> */}
       <div className='flex flex-col gap-[20px] items-center w-full'>
-      <h3 className='text-white font-semibold text-[40px]'>Burgers</h3>
+      <h3 className='text-white font-semibold text-[40px]'>The burgers most requested by our customers </h3>
         <p className='text-white text-[25px] text-center'>All of our burgers come with a side of crispy fries to enhance your dining experience. Enjoy the perfect combination of flavors with every bite!</p>
         <div className='gaga flex flex-wrap gap-[20px] w-full justify-center'>
           {burgers.map((hamburguer) => (
