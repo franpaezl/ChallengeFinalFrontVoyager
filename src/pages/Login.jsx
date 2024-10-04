@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { X, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -6,10 +6,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { em } from 'framer-motion/client'
-import { loginAction } from '../redux/actions/authAction'
 import PopUpAlert from '../components/PopUpAlert'
 import Swal from 'sweetalert2'
+
 import checkGif from "../assets/checkGif.gif"
+
+import { loadUser } from '../redux/actions/authAction'
 
 
 function Login() {
@@ -34,7 +36,13 @@ function Login() {
 
 
     const [activeTab, setActiveTab] = useState('login')
+
     const navigate = useNavigate();
+
+
+    const status = useSelector((state) => state.authReducer.status);
+
+    console.log(status);
 
 
     const inputVariants = {
@@ -66,8 +74,17 @@ function Login() {
             console.log(response);
 
             // Si el login es exitoso, guarda la respuesta (token, etc.)
-            dispatch(loginAction(response.data)); // Maneja el login con Redux
+            // dispatch(loginAction(response.data)); // Maneja el login con Redux
+            console.log(response.data);
 
+
+            const token = response.data
+
+            if (token) {
+                localStorage.setItem("token", token)
+                navigate('/')
+                dispatch(loadUser())
+            }
 
             // Swal.fire({
             //     title: 'Login Successful!',
@@ -161,6 +178,8 @@ function Login() {
             }
         }
     };
+
+
 
     const handleOnClickPopAupAlert = (e) => {
         setShowPopUpAlert("hidden");

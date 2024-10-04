@@ -18,10 +18,31 @@ import DeliveryAdmin from './pages/DeliveryAdmin.jsx';
 import AdminPostProduct from './pages/AdminPostProduct.jsx';
 
 import MenuView from './pages/MenuView.jsx';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
+import SendOrderForm from './pages/SendOrderForm.jsx';
+
+import DeliveryComponent from './components/DeliveryComponent.jsx';
+import AddAddress from './components/AddAddress.jsx';
+
+
 
 
 
 function App() {
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //     const token = localStorage.getItem('token');
+  //     console.log(token);
+      
+  //     if (token) {
+  //         // Si hay un token en localStorage, actualiza el estado de autenticación
+  //         dispatch(loginAction({ token, isLoggedIn: true }));
+  //     }
+  // }, [dispatch]);
   return (
     <BrowserRouter>
       <Routes>
@@ -35,10 +56,13 @@ function App() {
           <Route path="/adminform" element={<AdminPostProduct />} className="adminform" />
 
 
-          
+
+          <Route path='/sendOrder' element={<SendOrderForm/>} className="sendOrderForm"></Route>
+
+
 
           <Route path="/menu" element={<MenuView />} className="" />
-
+          <Route path='/addAddress' element={<AddAddress/>}/>
         </Route>
         <Route path='/login' element={<Login/>} />
 

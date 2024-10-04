@@ -1,3 +1,4 @@
+
 import React, { useState } from 'react'
 import { ArrowRight, X } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -8,7 +9,13 @@ import axios from 'axios'
 import checkGif from "../assets/checkGif.gif"
 
 
+
 function Register() {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [telephone, setTelephone] = useState(["", ""]); // Initialize with two empty strings
+    const [password, setPassword] = useState("");
 
     //--------------------------------------Efectos visuales
     const inputVariants = {
@@ -19,11 +26,11 @@ function Register() {
             transition: {
                 type: "spring",
                 stiffness: 300,
-                damping: 24
-            }
+                damping: 24,
+            },
         },
         focus: { scale: 1.02, transition: { duration: 0.2 } },
-    }
+    };
 
     const containerVariants = {
         hidden: { opacity: 0 },
@@ -31,8 +38,24 @@ function Register() {
             opacity: 1,
             transition: {
                 staggerChildren: 0.1,
-                delayChildren: 0.3
-            }
+                delayChildren: 0.3,
+            },
+        },
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:8080/api/auth/register', {
+                firstName,
+                lastName,
+                email,
+                phoneNumbers: telephone, // Send the array of phone numbers
+                password,
+            });
+            console.log(response.data);
+        } catch (error) {
+            console.error('Error registering:', error);
         }
     }
     //--------------------------------------Efectos visuales
@@ -251,7 +274,6 @@ function Register() {
                         >
                             ¿Have you already have an account? Sing In
                         </motion.button>
-                   
                 </Link>
                 </div>
                 
@@ -259,12 +281,14 @@ function Register() {
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
                     className="absolute  right-[1%] top-[2%] text-gray-400 hover:text-white transition-colors duration-200"
+
                 >
                     <Link to="/">
                         <X size={24} />
                     </Link>
                 </motion.button>
                 <form onSubmit={handleRegister} className="space-y-4 relative z-0">
+
                     <div className="grid grid-cols-2 gap-4">
                         <motion.input
                             variants={inputVariants}
@@ -383,18 +407,13 @@ function Register() {
                 <PopUpAlert gif={gif} message={messageShowPopUpAlert} link={link} handleOnClick={handleOnClickPopAupAlert} />
             </div>
                 </form>
-                <style jsx>{`
-          .group:hover span {
-            color: #1F2937;
-          }
-        `}</style>
             </motion.div>
 
             {/* showPopUpAlert   */}
             
 
         </div>
-    )
+    );
 }
 
-export default Register
+export default Register;
