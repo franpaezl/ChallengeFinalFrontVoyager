@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { X, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
@@ -6,9 +6,9 @@ import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { em } from 'framer-motion/client'
-import { loginAction } from '../redux/actions/authAction'
 import PopUpAlert from '../components/PopUpAlert'
 import Swal from 'sweetalert2'
+import { loadUser } from '../redux/actions/authAction'
 
 
 function Login() {
@@ -35,10 +35,16 @@ function Login() {
 
 
     const [activeTab, setActiveTab] = useState('login')
-    // const {status, isLoggedIn, error, token} = useSelector((state) => state.auth)
-    // console.log(status, isLoggedIn, error, token)
+
 
     const navigate = useNavigate();
+
+
+    const status = useSelector((state) => state.authReducer.status);
+
+    console.log(status);
+
+
 
 
 
@@ -74,7 +80,17 @@ function Login() {
             console.log(response);
 
             // Si el login es exitoso, guarda la respuesta (token, etc.)
-            dispatch(loginAction(response.data)); // Maneja el login con Redux
+            // dispatch(loginAction(response.data)); // Maneja el login con Redux
+            console.log(response.data);
+
+
+            const token = response.data
+
+            if (token) {
+                localStorage.setItem("token", token)
+                navigate('/')
+                dispatch(loadUser())
+            }
 
 
             Swal.fire({
@@ -83,8 +99,7 @@ function Login() {
                 icon: 'success',
                 confirmButtonText: 'OK',
             });
-            
-            navigate('/')
+
 
 
             setMessageShowPopUpAlert(
@@ -127,9 +142,11 @@ function Login() {
         }
     };
 
+
+
     const handleOnClickPopAupAlert = (e) => {
         setShowPopUpAlert("hidden");
-      };
+    };
 
 
 
@@ -197,7 +214,7 @@ function Login() {
                             />
                             {/*  */}
                             <p className={`${showInputErrorEmail} text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
-                            &#10071; {messageErrorInput}
+                                &#10071; {messageErrorInput}
                             </p>
                             <motion.input
                                 variants={inputVariants}
