@@ -37,9 +37,7 @@ const Carrousel = () => {
             {/* Overlay con opacidad negra */}
             <div className="absolute top-0 left-0 w-full h-full"></div>
             {/* Texto "Welcome" centrado */}
-            <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl font-bold">
-              Welcome
-            </h1>
+            
           </div>
         ))}
       </div>

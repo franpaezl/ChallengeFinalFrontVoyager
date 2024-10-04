@@ -98,6 +98,13 @@ function MenuView() {
     setCartItems([]); // Vacía el carrito
   };
 
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
+    }).format(price);
+  };
+
   return (
     <div className="bground flex flex-col min-h-screen">
       <div className="mb-[70px] mt-[150px]">
@@ -215,9 +222,9 @@ function MenuView() {
                   key={hamburguer.nameProduct}
                   name={hamburguer.nameProduct}
                   description={hamburguer.details}
-                  price={hamburguer.priceProduct}
+                  price={formatPrice(hamburguer.priceProduct)}
                   backgroundImage={hamburguer.img}
-                  typeIcon={iconMap[hamburguer.category]}
+                  typeIcon={iconMap[hamburguer.category.toLowerCase()]}
                   onClick={() => addToCart(hamburguer)} // Add to cart
                 />
               ))}
@@ -235,9 +242,9 @@ function MenuView() {
                   key={side.nameProduct}
                   name={side.nameProduct}
                   description={side.details}
-                  price={side.priceProduct}
+                  price={formatPrice(side.priceProduct)}
                   backgroundImage={side.img}
-                  typeIcon={iconMap[side.category]}
+                  typeIcon={iconMap[side.category.toLowerCase()]}
                   onClick={() => addToCart(side)} // Add to cart
                 />
               ))}
@@ -255,9 +262,9 @@ function MenuView() {
                   key={beverage.nameProduct}
                   name={beverage.nameProduct}
                   description={beverage.details}
-                  price={beverage.priceProduct}
+                  price={formatPrice(beverage.priceProduct)}
                   backgroundImage={beverage.img}
-                  typeIcon={iconMap[beverage.category]}
+                  typeIcon={iconMap[beverage.category.toLowerCase()]}
                   onClick={() => addToCart(beverage)} // Add to cart
                 />
               ))}
@@ -275,9 +282,9 @@ function MenuView() {
                   key={dessert.nameProduct}
                   name={dessert.nameProduct}
                   description={dessert.details}
-                  price={dessert.priceProduct}
+                  price={formatPrice(dessert.priceProduct)}
                   backgroundImage={dessert.img}
-                  typeIcon={iconMap[dessert.category]}
+                  typeIcon={iconMap[dessert.category.toLowerCase()]}
                   onClick={() => addToCart(dessert)} // Add to cart
                 />
               ))}

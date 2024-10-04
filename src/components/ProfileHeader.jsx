@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react'
 import { User, ChevronDown, ChevronUp, MapPin, Plus, Camera, Mail, Phone } from 'lucide-react'
 import CustomerButton from './CustomerButton'

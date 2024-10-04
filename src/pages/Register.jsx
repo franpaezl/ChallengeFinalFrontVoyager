@@ -11,11 +11,7 @@ import checkGif from "../assets/checkGif.gif"
 
 
 function Register() {
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [email, setEmail] = useState("");
-    const [telephone, setTelephone] = useState(["", ""]); // Initialize with two empty strings
-    const [password, setPassword] = useState("");
+    
 
     //--------------------------------------Efectos visuales
     const inputVariants = {
@@ -43,21 +39,7 @@ function Register() {
         },
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        try {
-            const response = await axios.post('http://localhost:8080/api/auth/register', {
-                firstName,
-                lastName,
-                email,
-                phoneNumbers: telephone, // Send the array of phone numbers
-                password,
-            });
-            console.log(response.data);
-        } catch (error) {
-            console.error('Error registering:', error);
-        }
-    }
+
     //--------------------------------------Efectos visuales
 
     const [firstName, setFirstName] = useState("");
