@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import image1 from "../assets/local2pisos.jpeg";
-import image2 from "../assets/person-is-holding-large-hamburger-with-lettuce-tomato-burger-is-topped-with-ketchup_137441-16635.jpg"; // Asegúrate de que la ruta de la imagen sea correcta
+import image2 from "../assets/person-is-holding-large-hamburger-with-lettuce-tomato-burger-is-topped-with-ketchup_137441-16635.jpg";
 
 import Menu from './Menu';
+
 const Carrousel = () => {
   const images = [image1, image2];
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -19,12 +20,8 @@ const Carrousel = () => {
     setCurrentIndex(index);
   };
 
-  
-
   return (
-    
     <div id="default-carousel" className="relative w-full" data-carousel="slide">
-     
       <div className="relative h-96 overflow-hidden md:h-[100vh]">
         {images.map((image, index) => (
           <div
@@ -34,11 +31,15 @@ const Carrousel = () => {
           >
             <img 
               src={image} 
-              className="w-full h-full object-cover" // Cambiado a object-center
+              className="w-full h-full object-cover" 
               alt={`Slide ${index + 1}`} 
             />
             {/* Overlay con opacidad negra */}
             <div className="absolute top-0 left-0 w-full h-full"></div>
+            {/* Texto "Welcome" centrado */}
+            <h1 className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-4xl md:text-6xl font-bold">
+              Welcome
+            </h1>
           </div>
         ))}
       </div>
@@ -81,7 +82,6 @@ const Carrousel = () => {
         </span>
       </button>
     </div>
-      
   );
 };
 
