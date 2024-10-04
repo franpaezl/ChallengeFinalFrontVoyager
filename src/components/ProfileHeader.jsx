@@ -3,9 +3,10 @@ import React, { useState } from 'react'
 import { User, ChevronDown, ChevronUp, MapPin, Plus, Camera, Mail, Phone } from 'lucide-react'
 import CustomerButton from './CustomerButton'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import Swal from 'sweetalert2'
 import { logoutAction } from '../redux/actions/authAction'
+import { authReducer } from '../redux/reducers/authReducer'
 
 // interface Address {
 //   street: string;
@@ -26,15 +27,29 @@ function ProfileHeader() {
     const dispatch = useDispatch();
     const [isOpen, setIsOpen] = useState(false)
     const [profilePicture, setProfilePicture] = useState('/placeholder.svg?height=100&width=100')
-    const [userInfo, setUserInfo] = useState({
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        phone: '+1 234 567 8900',
-        alternativePhone: '+1 098 765 4321',
-        addresses: [{ street: '123 Main St, City, Country', postalCode: '12345' }]
-    })
+    // const [userInfo, setUserInfo] = useState({
+    //     name: 'John Doe',
+    //     email: 'john.doe@example.com',
+    //     phone: '+1 234 567 8900',
+    //     alternativePhone: '+1 098 765 4321',
+    //     addresses: [{ street: '123 Main St, City, Country', postalCode: '12345' }]
+    // })
+
+    const { firstName, lastName, email, phoneNumbers } = useSelector(store => store.authReducer.user)
+    //     console.log( address);
+    //     const {zipCode,nameStreet,streetNumber} = useSelector(store => store.authReducer.client.address)
+    // console.log(useSelector(store => store.authReducer.client));
+    const { address} = useSelector(store => store.authReducer.user)
+
+    console.log(useSelector(store => store.authReducer.user));
+
+    
+
+    
 
     const handleToggleDropdown = () => setIsOpen(!isOpen)
+
+
 
 
 
@@ -52,8 +67,9 @@ function ProfileHeader() {
     }
 
     const handleAddAddress = () => {
-        const street = prompt('Enter new address:')
-        const postalCode = prompt('Enter postal code:')
+        // const street = prompt('Enter new address:')
+        // const postalCode = prompt('Enter postal code:')
+
         if (street && postalCode) {
             setUserInfo(prevInfo => ({
                 ...prevInfo,
@@ -108,10 +124,10 @@ function ProfileHeader() {
 
                         <div className="flex flex-col items-center mb-4">
                             <div className="relative w-24 h-24 rounded-full bg-gray-200 mb-2 overflow-hidden">
-                                <img src={profilePicture} alt="Profile" className="w-full h-full object-cover" />
+                                <img src={profilePicture} alt="Profile" className="w-full h-full mt-2  object-cover" />
                                 <label htmlFor="profile-picture-upload" className="absolute bottom-0 left-0 right-0 bg-black bg-opacity-50 text-white text-center py-1 cursor-pointer">
-                                    <Camera size={16} className="inline-block mr-1" />
-                                    <span>Upload</span>
+                                    <Camera size={20} className="inline-block " />
+                                    {/* <span>Upload</span> */}
                                 </label>
                                 <input
                                     id="profile-picture-upload"
@@ -121,35 +137,36 @@ function ProfileHeader() {
                                     className="hidden"
                                 />
                             </div>
-                            <h2 className="text-xl font-bold">{userInfo.name}</h2>
+                            <h2 className="text-xl font-bold">{"Welcome" + " " + firstName + " " + lastName + "!"}</h2>
                         </div>
                         <div className="space-y-2">
                             <div className="flex items-center">
                                 <Mail size={16} className="mr-2" />
                                 <span className="font-bold mr-2">Email:</span>
-                                {userInfo.email}
+                                {email}
                             </div>
                             <div className="flex items-center">
                                 <Phone size={16} className="mr-2" />
                                 <span className="font-bold mr-2">Phone:</span>
-                                {userInfo.phone}
+                                {phoneNumbers[0]}
                             </div>
                             <div className="flex items-center">
                                 <Phone size={16} className="mr-2" />
                                 <span className="font-bold mr-2">Alternative Phone:</span>
-                                {userInfo.alternativePhone}
+                                {phoneNumbers[1]}
                             </div>
 
                             <h3 className="font-bold mt-4 mb-2">Addresses:</h3>
-                            {userInfo.addresses.map((address, index) => (
+                            {address.map((address, index) => (
                                 <div key={index} className="flex items-start mb-2">
                                     <MapPin size={16} className="mr-2 mt-1" />
                                     <div>
-                                        <div>{address.street}</div>
-                                        <div><span className="font-bold">Postal Code:</span> {address.postalCode}</div>
+                                        <div>{address.nameStreet + " " + address.streetNumber}</div>
+                                        <div><span className="font-bold">Postal Code:</span> {address.zipCode}</div>
                                     </div>
                                 </div>
                             ))}
+                            <Link to="/addAddress">
                             <button
                                 onClick={handleAddAddress}
                                 className="flex items-center text-blue-500 bg-transparent border-none cursor-pointer text-base p-0 hover:opacity-80"
@@ -157,6 +174,7 @@ function ProfileHeader() {
                                 <Plus size={16} className="mr-2" />
                                 Add Address
                             </button>
+                            </Link>
                         </div>
                     </div>
                 )}

@@ -15,6 +15,8 @@ import { loadUser } from '../redux/actions/authAction'
 
 const home = () => {
   const user = useSelector((store)=> store.authReducer.user)
+  console.log(user);
+  
   const dispatch = useDispatch()
   useEffect(()=>{
     if(user.firstName == ""){
