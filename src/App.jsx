@@ -18,10 +18,25 @@ import DeliveryAdmin from './pages/DeliveryAdmin.jsx';
 import AdminPostProduct from './pages/AdminPostProduct.jsx';
 
 import MenuView from './pages/MenuView.jsx';
+import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+
 
 
 
 function App() {
+
+  // const dispatch = useDispatch();
+
+  // useEffect(() => {
+  //     const token = localStorage.getItem('token');
+  //     console.log(token);
+      
+  //     if (token) {
+  //         // Si hay un token en localStorage, actualiza el estado de autenticación
+  //         dispatch(loginAction({ token, isLoggedIn: true }));
+  //     }
+  // }, [dispatch]);
   return (
     <BrowserRouter>
       <Routes>

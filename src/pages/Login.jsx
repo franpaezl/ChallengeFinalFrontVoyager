@@ -1,13 +1,55 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
 import { X, ArrowRight } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
+import axios from 'axios'
+import { em } from 'framer-motion/client'
+import PopUpAlert from '../components/PopUpAlert'
+import Swal from 'sweetalert2'
+import { loadUser } from '../redux/actions/authAction'
 
 
 function Login() {
 
+
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const dispatch = useDispatch();
+
+    const [showPopUpAlert, setShowPopUpAlert] = useState("hidden");
+    const [messageShowPopUpAlert, setMessageShowPopUpAlert] = useState("");
+    const [gif, setGif] = useState("");
+    const [link, setLink] = useState("");
+
+    const [showInputErrorEmail, setShowInputErrorEmail] = useState("hidden");
+    const [showInputPassword, setShowInputPassword] = useState("hidden");
+
+    const [colorErrorInputEmail, setColorErrorInputEmail] = useState("");
+    const [colorErrorInputPassword, setColorErrorInputPassword] = useState("");
+
+    const [messageErrorInput, setMessageErrorInput] = useState("");
+
+
+
+
     const [activeTab, setActiveTab] = useState('login')
+
+
+    const navigate = useNavigate();
+
+
+    const status = useSelector((state) => state.authReducer.status);
+
+    console.log(status);
+
+
+
+
+
+
+
 
     const inputVariants = {
         focus: { scale: 1.02, transition: { duration: 0.2 } },
@@ -17,6 +59,99 @@ function Login() {
         hover: { scale: 1.05, transition: { duration: 0.2 } },
         tap: { scale: 0.95, transition: { duration: 0.2 } },
     }
+
+
+    // Manejar el envío del formulario
+    const handleLogin = async (event) => {
+        event.preventDefault(); // Evita que la página se recargue
+
+        const user = {
+            email: email,
+            password: password,
+        };
+
+        console.log(user);
+
+        try {
+            const response = await axios.post(
+                "http://localhost:8080/api/auth/login",
+                user
+            );
+            console.log(response);
+
+            // Si el login es exitoso, guarda la respuesta (token, etc.)
+            // dispatch(loginAction(response.data)); // Maneja el login con Redux
+            console.log(response.data);
+
+
+            const token = response.data
+
+            if (token) {
+                localStorage.setItem("token", token)
+                navigate('/')
+                dispatch(loadUser())
+            }
+
+
+            Swal.fire({
+                title: 'Login Successful!',
+                text: 'You have been logged in successfully.',
+                icon: 'success',
+                confirmButtonText: 'OK',
+            });
+
+
+
+            setMessageShowPopUpAlert(
+                <>
+                    <span className="font-extrabold">
+                        LOGIN SUCCESSFUL <br /> Welcome{" "}<p className="text-[#26a026] font-extrabold inline-block">{response.data[1]}</p>
+                    </span>
+                </>
+            );
+            setGif(checkGif);
+            setShowPopUpAlert("");
+            setLink("/accounts");
+
+        } catch (error) {
+            console.error(error.response ? error.response.data : error.message);
+            let erroMessage = error.response ? error.response.data : error.message;
+            if (erroMessage.includes("Email or Password invalid")) {
+                console.log("Entra?")
+                setMessageShowPopUpAlert(
+                    <>
+                        <p className="text-[#9e1919] font-extrabold inline-block">
+                            {erroMessage}
+                        </p>{" "}
+                    </>
+                );
+                // setGif(xGif);
+                setShowPopUpAlert("");
+                setLink("");
+            }
+            if (erroMessage.includes("Email can")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+            }
+            if (erroMessage.includes("Password can")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputPassword('')
+                setColorErrorInputPassword('border-2  border-[red]')
+            }
+        }
+    };
+
+
+
+    const handleOnClickPopAupAlert = (e) => {
+        setShowPopUpAlert("hidden");
+    };
+
+
+
+
+
     return (
 
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -32,7 +167,7 @@ function Login() {
                     className="absolute top-2 right-2 text-gray-400 hover:text-white transition-colors duration-200"
                 >
                     <Link to="/">
-                    <X size={24} />
+                        <X size={24} />
                     </Link>
                 </motion.button>
                 <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">Te estamos esperando</h2>
@@ -47,14 +182,14 @@ function Login() {
                         ¿Ya tenes cuenta? Ingresá
                     </motion.button>
                     <Link to="/register">
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`text-sm transition-colors duration-200 ${activeTab === 'register' ? 'text-yellow-500' : 'text-gray-400'}`}
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className={`text-sm transition-colors duration-200 ${activeTab === 'register' ? 'text-yellow-500' : 'text-gray-400'}`}
                         // onClick={() => setActiveTab('/register')}
-                    >
-                        ¿Aún no tenes una cuenta? Registrate
-                    </motion.button>
+                        >
+                            ¿Aún no tenes una cuenta? Registrate
+                        </motion.button>
                     </Link>
                 </div>
                 <motion.div
@@ -63,21 +198,36 @@ function Login() {
                     transition={{ duration: 0.3 }}
                 >
                     {activeTab === 'login' ? (
-                        <form className="space-y-4">
+                        <form onSubmit={handleLogin} className="space-y-4">
                             <motion.input
                                 variants={inputVariants}
                                 whileFocus="focus"
-                                type="email"
+                                type="text"
                                 placeholder="Email"
                                 className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value)
+                                    setShowInputErrorEmail('hidden')
+                                    setColorErrorInputEmail('')
+                                }}
                             />
+                            {/*  */}
+                            <p className={`${showInputErrorEmail} text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                                &#10071; {messageErrorInput}
+                            </p>
                             <motion.input
                                 variants={inputVariants}
                                 whileFocus="focus"
                                 type="password"
                                 placeholder="Contraseña"
                                 className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                value={password}
+                                onChange={(e) => {
+                                    setPassword(e.target.value)
+                                }}
                             />
+                            <p className={`${showInputPassword} text-[red] text-[17px] bg-white border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}> &#10071;{messageErrorInput}</p>
                             <button
                                 className="relative w-full p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
                             >
@@ -101,6 +251,15 @@ function Login() {
                   color: #1F2937;
                 }
               `}</style>
+
+            <div className={`${showPopUpAlert}`}>
+                <PopUpAlert
+                    gif={gif}
+                    message={messageShowPopUpAlert}
+                    link={link}
+                    handleOnClick={handleOnClickPopAupAlert}
+                />
+            </div>
         </div>
     )
 }
