@@ -9,6 +9,7 @@ import { em } from 'framer-motion/client'
 import { loginAction } from '../redux/actions/authAction'
 import PopUpAlert from '../components/PopUpAlert'
 import Swal from 'sweetalert2'
+import checkGif from "../assets/checkGif.gif"
 
 
 function Login() {
@@ -68,14 +69,14 @@ function Login() {
             dispatch(loginAction(response.data)); // Maneja el login con Redux
 
 
-            Swal.fire({
-                title: 'Login Successful!',
-                text: 'You have been logged in successfully.',
-                icon: 'success',
-                confirmButtonText: 'OK',
-            });
-            
-            navigate('/')
+            // Swal.fire({
+            //     title: 'Login Successful!',
+            //     text: 'You have been logged in successfully.',
+            //     icon: 'success',
+            //     confirmButtonText: 'OK',
+            // });
+
+            // navigate('/')
 
 
             setMessageShowPopUpAlert(
@@ -87,7 +88,7 @@ function Login() {
             );
             setGif(checkGif);
             setShowPopUpAlert("");
-            setLink("/accounts");
+            setLink("/");
 
         } catch (error) {
             console.error(error.response ? error.response.data : error.message);
@@ -163,7 +164,7 @@ function Login() {
 
     const handleOnClickPopAupAlert = (e) => {
         setShowPopUpAlert("hidden");
-      };
+    };
 
 
 
@@ -187,8 +188,8 @@ function Login() {
                         <X size={24} />
                     </Link>
                 </motion.button>
-                <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">Te estamos esperando</h2>
-                <h1 className="text-3xl font-bold text-center text-white mb-6">Reservá en VOYAGER</h1>
+                <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">We are waiting for you</h2>
+                <h1 className="text-3xl font-bold text-center text-white mb-6">Book on VOYAGER</h1>
                 <div className="flex justify-center space-x-4 mb-6">
                     <Link to="/register">
                         <motion.button
@@ -196,7 +197,7 @@ function Login() {
                             whileTap={{ scale: 0.95 }}
                             className={`text-sm text-gray-400 transition-colors duration-200 hover:text-yellow-500`}
                         >
-                            ¿Aún no tenes una cuenta? Registrate
+                            Don't have an account yet? Sign up
                         </motion.button>
                     </Link>
                 </div>
@@ -222,13 +223,13 @@ function Login() {
                             />
                             {/*  */}
                             <p className={`${showInputErrorEmail} text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
-                            &#10071; {messageErrorInput}
+                                &#10071; {messageErrorInput}
                             </p>
                             <motion.input
                                 variants={inputVariants}
                                 whileFocus="focus"
                                 type="password"
-                                placeholder="Contraseña"
+                                placeholder="Password"
                                 className={`${colorErrorInputPassword} w-full p-3 bg-gray-700 text-white  rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
                                 value={password}
                                 onChange={(e) => {
@@ -242,13 +243,13 @@ function Login() {
                                 className="relative w-full p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
                             >
                                 <span className="relative z-10 flex items-center justify-center">
-                                    Ingresar
+                                    Sign in
                                     <ArrowRight size={20} className="ml-2" />
                                 </span>
                                 <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-500 transition-all duration-300 group-hover:h-full"></span>
                                 <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-400 transition-all duration-500 delay-100 group-hover:h-full"></span>
                             </button>
-                            <p className="text-sm text-center text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">¿Olvidaste tu contraseña?</p>
+                            {/* <p className="text-sm text-center text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">¿Olvidaste tu contraseña?</p> */}
                         </form>
                     ) : (
                         ""

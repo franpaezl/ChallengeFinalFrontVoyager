@@ -5,6 +5,8 @@ import { Link } from 'react-router-dom'
 import { use } from 'framer-motion/client'
 import PopUpAlert from '../components/PopUpAlert'
 import axios from 'axios'
+import checkGif from "../assets/checkGif.gif"
+
 
 function Register() {
 
@@ -159,7 +161,7 @@ function Register() {
                 setShowInputPassword('')
                 setColorErrorInputPassword('border-2  border-[red]')
             }
-            if (firstName !== "" && lastName !== "" && email !== "" && !errorMessage.includes('Password') && firstCel == "") {
+            if (firstName !== "" && lastName !== "" && email !== "" && password !== "" && !errorMessage.includes('Password') && firstCel == "") {
                 console.log("primer validacion firstcel")
                 setMessageErrorInput('Please provide first phone number.')
                 setShowInputFirstCel('')
@@ -200,7 +202,7 @@ function Register() {
                     setColorErrorInputSecondCel('border-2  border-[red]')
                 }
             }
-            if (firstCel == secondCel) {
+            if (firstCel !== "" && secondCel !== "" && firstCel == secondCel) {
 
                 console.log("Entra?")
                 setMessageErrorInput('Both phone numbers can not be equals.')
@@ -221,9 +223,9 @@ function Register() {
 
     return (
 
-        <div className="flex items-center justify-center min-h-screen bg-gray-900">
+        <div className="flex items-center justify-center min-h-screen bg-gray-900 ">
             <motion.div
-                className="w-full max-w-2xl p-8 bg-gray-800 rounded-lg shadow-lg"
+                className="w-full max-w-2xl p-8 bg-gray-800 rounded-lg shadow-lg relative"
                 initial="hidden"
                 animate="visible"
                 variants={containerVariants}
@@ -232,32 +234,31 @@ function Register() {
                     className="text-2xl font-bold text-center text-yellow-500 mb-2"
                     variants={inputVariants}
                 >
-                    Te estamos esperando
+                    We are waiting for you
                 </motion.h2>
                 <motion.h1
                     className="text-3xl font-bold text-center text-white mb-2"
                     variants={inputVariants}
                 >
-                    Registrate en VOYAGER
+                    Register on VOYAGER
                 </motion.h1>
+                <div className='w-full flex flex-row justify-center my-[15px]'>
                 <Link to="/login" >
-                    <motion.p
-                        className="text-center text-gray-400 mb-6"
-                        variants={inputVariants}
-                    >
-                        <span className="mr-1">¿Ya tenes una cuenta?</span>
-                        <button
-                            // onClick={onSwitchToLogin}
-                            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-200"
+                        <motion.button
+                            whileHover={{ scale: 1.05 }}
+                            whileTap={{ scale: 0.95 }}
+                            className={`text-sm text-gray-400 transition-colors duration-200 hover:text-yellow-500`}
                         >
-                            Ingresá
-                        </button>
-                    </motion.p>
+                            ¿Have you already have an account? Sing In
+                        </motion.button>
+                   
                 </Link>
+                </div>
+                
                 <motion.button
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    className="absolute  right-[350px] top-[100px] text-gray-400 hover:text-white transition-colors duration-200"
+                    className="absolute  right-[1%] top-[2%] text-gray-400 hover:text-white transition-colors duration-200"
                 >
                     <Link to="/">
                         <X size={24} />
@@ -378,6 +379,9 @@ function Register() {
                         <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-500 transition-all duration-300 group-hover:h-full"></span>
                         <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-400 transition-all duration-500 delay-100 group-hover:h-full"></span>
                     </motion.button>
+                    <div className={`${showPopUpAlert}`}>
+                <PopUpAlert gif={gif} message={messageShowPopUpAlert} link={link} handleOnClick={handleOnClickPopAupAlert} />
+            </div>
                 </form>
                 <style jsx>{`
           .group:hover span {
@@ -386,9 +390,8 @@ function Register() {
         `}</style>
             </motion.div>
 
-            <div className={`${showPopUpAlert}`}>
-                <PopUpAlert gif={gif} message={messageShowPopUpAlert} link={link} handleOnClick={handleOnClickPopAupAlert} />
-            </div>
+            {/* showPopUpAlert   */}
+            
 
         </div>
     )
