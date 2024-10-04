@@ -54,6 +54,7 @@ const Header = () => {
   //   // }
   // }
 
+console.log(status);
 
   return (
 

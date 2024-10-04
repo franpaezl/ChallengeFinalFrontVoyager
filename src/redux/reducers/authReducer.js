@@ -101,16 +101,31 @@ export const authReducer = createReducer(initialState, (builder) => {
             state.status = "loading";
         })
         .addCase(loadUser.fulfilled, (state, action) => {
-            state.client = action.payload;
-            state.status = "success";
+            return{
+                ...state,
+                user:action.payload,
+                status:"success"    ,
+                isLoggedIn:true
+            }
         })
         .addCase(loadUser.rejected, (state, action) => {
-            state.status = "failed";
-            state.error = action.payload;
+
+            return{
+                ...state,
+                status:"failed",
+                error:action.payload
+            }
         })
         .addCase(logoutAction, (state, action) => {
-            state.client = initialState.user
-            state.status = "idle"
+
+            return{
+                ...state,
+                status:"idle",
+                user : initialState.user
+
+            }
+            // state.client = initialState.user
+
             
 
         })

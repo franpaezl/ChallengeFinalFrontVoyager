@@ -45,13 +45,18 @@ import Swal from "sweetalert2";
 export const loadUser = createAsyncThunk(
     "loadUser",
     async (_, { rejectWithValue }) => {
-        const token = localStorage.getItem("token");
 
-        if (!token) {
-            return rejectWithValue("Token not found");
-        }
+
 
         try {
+
+            const token = localStorage.getItem("token");
+
+
+            if (token) {
+                console.log("Token enviado en loadUser:", token);
+
+            }
             const response = await axios.get(
                 "http://localhost:8080/api/auth/current",
                 {
@@ -59,6 +64,7 @@ export const loadUser = createAsyncThunk(
                 }
             );
             return response.data;
+        
         } catch (error) {
             return rejectWithValue(
                 error.response ? error.response.data : "Unknown error"

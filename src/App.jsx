@@ -20,6 +20,8 @@ import AdminPostProduct from './pages/AdminPostProduct.jsx';
 import MenuView from './pages/MenuView.jsx';
 import { useDispatch } from 'react-redux';
 import { useEffect } from 'react';
+import DeliveryComponent from './components/DeliveryComponent.jsx';
+import AddAddress from './components/AddAddress.jsx';
 
 
 
@@ -48,12 +50,8 @@ function App() {
 
           <Route path="/deliveryadmin" element={<DeliveryAdmin />} className="deliveryadmin" />
           <Route path="/adminform" element={<AdminPostProduct />} className="adminform" />
-
-
-          
-
           <Route path="/menu" element={<MenuView />} className="" />
-
+          <Route path='/addAddress' element={<AddAddress/>}/>
         </Route>
         <Route path='/login' element={<Login/>} />
 
