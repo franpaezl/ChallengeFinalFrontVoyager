@@ -14,12 +14,12 @@ function PopUpAlert({gif, message, handleOnClick, link}) {
             </div>
         </div>
         <div>
-            <p className='text-center text-[25px] px-[15px]'>{message}</p>
+            <p className='text-center text-[25px] font-bold px-[15px]'>{message}</p>
         </div>
         <div className='w-full flex flex-row justify-center my-[25px]'>
             <Link to={link}>
              <button onClick={handleOnClick} id='buttomAccept'>
-                <p className='buttonPopUp p-[10px] text-[20px] text-white font-bold bg-yellow-500'>ACCEPT</p>
+                <p className='buttonPopUp p-[10px] text-[20px] text-black font-bold bg-yellow-500'>ACCEPT</p>
              </button>
             </Link>
         </div>

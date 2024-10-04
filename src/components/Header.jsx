@@ -63,7 +63,6 @@ console.log(status);
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 bg-[#0F1D15] border-[#E6BB4D] border-2 rounded-lg">
 
 
-
         <div className='flex flex-col'>
           {status === "success" &&
 
@@ -153,6 +152,7 @@ console.log(status);
                     </Link>
                   </li>
                   {/* <li className={`transition transform ${location.pathname === '/deliveryadmin' ? ' scale-150' : 'hover:scale-125'
+
                     }`}
                   >
                     <Link

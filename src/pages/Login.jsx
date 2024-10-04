@@ -8,6 +8,9 @@ import axios from 'axios'
 import { em } from 'framer-motion/client'
 import PopUpAlert from '../components/PopUpAlert'
 import Swal from 'sweetalert2'
+
+import checkGif from "../assets/checkGif.gif"
+
 import { loadUser } from '../redux/actions/authAction'
 
 
@@ -32,10 +35,7 @@ function Login() {
     const [messageErrorInput, setMessageErrorInput] = useState("");
 
 
-
-
     const [activeTab, setActiveTab] = useState('login')
-
 
     const navigate = useNavigate();
 
@@ -43,12 +43,6 @@ function Login() {
     const status = useSelector((state) => state.authReducer.status);
 
     console.log(status);
-
-
-
-
-
-
 
 
     const inputVariants = {
@@ -92,14 +86,14 @@ function Login() {
                 dispatch(loadUser())
             }
 
+            // Swal.fire({
+            //     title: 'Login Successful!',
+            //     text: 'You have been logged in successfully.',
+            //     icon: 'success',
+            //     confirmButtonText: 'OK',
+            // });
 
-            Swal.fire({
-                title: 'Login Successful!',
-                text: 'You have been logged in successfully.',
-                icon: 'success',
-                confirmButtonText: 'OK',
-            });
-
+            // navigate('/')
 
 
             setMessageShowPopUpAlert(
@@ -111,11 +105,16 @@ function Login() {
             );
             setGif(checkGif);
             setShowPopUpAlert("");
-            setLink("/accounts");
+            setLink("/");
 
         } catch (error) {
             console.error(error.response ? error.response.data : error.message);
             let erroMessage = error.response ? error.response.data : error.message;
+            setMessageErrorInput('')
+            setShowInputErrorEmail('hidden')
+            setShowInputPassword('hidden')
+            setColorErrorInputEmail('')
+            setColorErrorInputPassword('')
             if (erroMessage.includes("Email or Password invalid")) {
                 console.log("Entra?")
                 setMessageShowPopUpAlert(
@@ -129,15 +128,53 @@ function Login() {
                 setShowPopUpAlert("");
                 setLink("");
             }
-            if (erroMessage.includes("Email can")) {
+            if (erroMessage.includes("Email can not be empty")) {
                 setMessageErrorInput(erroMessage)
                 setShowInputErrorEmail('')
                 setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
             }
-            if (erroMessage.includes("Password can")) {
+            if (erroMessage.includes("Invalid email format")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. It must")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. Please enter")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid email. Please provide")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Email not registered")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputErrorEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+                setColorErrorInputEmail('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Password")) {
                 setMessageErrorInput(erroMessage)
                 setShowInputPassword('')
                 setColorErrorInputPassword('border-2  border-[red]')
+                setColorErrorInputPassword('border-2 border-red-600')
+            }
+            if (erroMessage.includes("Invalid password")) {
+                setMessageErrorInput(erroMessage)
+                setShowInputPassword('')
+                setColorErrorInputPassword('border-2  border-[red]')
+                setColorErrorInputPassword('border-2 border-red-600')
             }
         }
     };
@@ -170,25 +207,16 @@ function Login() {
                         <X size={24} />
                     </Link>
                 </motion.button>
-                <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">Te estamos esperando</h2>
-                <h1 className="text-3xl font-bold text-center text-white mb-6">Reservá en VOYAGER</h1>
+                <h2 className="text-2xl font-bold text-center text-yellow-500 mb-2">We are waiting for you</h2>
+                <h1 className="text-3xl font-bold text-center text-white mb-6">Book on VOYAGER</h1>
                 <div className="flex justify-center space-x-4 mb-6">
-                    <motion.button
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.95 }}
-                        className={`text-sm transition-colors duration-200 ${activeTab === 'login' ? 'text-yellow-500' : 'text-gray-400'}`}
-                        onClick={() => setActiveTab('login')}
-                    >
-                        ¿Ya tenes cuenta? Ingresá
-                    </motion.button>
                     <Link to="/register">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
-                            className={`text-sm transition-colors duration-200 ${activeTab === 'register' ? 'text-yellow-500' : 'text-gray-400'}`}
-                        // onClick={() => setActiveTab('/register')}
+                            className={`text-sm text-gray-400 transition-colors duration-200 hover:text-yellow-500`}
                         >
-                            ¿Aún no tenes una cuenta? Registrate
+                            Don't have an account yet? Sign up
                         </motion.button>
                     </Link>
                 </div>
@@ -204,7 +232,7 @@ function Login() {
                                 whileFocus="focus"
                                 type="text"
                                 placeholder="Email"
-                                className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                className={`${colorErrorInputEmail} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
                                 value={email}
                                 onChange={(e) => {
                                     setEmail(e.target.value)
@@ -220,11 +248,13 @@ function Login() {
                                 variants={inputVariants}
                                 whileFocus="focus"
                                 type="password"
-                                placeholder="Contraseña"
-                                className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                                placeholder="Password"
+                                className={`${colorErrorInputPassword} w-full p-3 bg-gray-700 text-white  rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
                                 value={password}
                                 onChange={(e) => {
                                     setPassword(e.target.value)
+                                    setShowInputPassword('hidden')
+                                    setColorErrorInputPassword('')
                                 }}
                             />
                             <p className={`${showInputPassword} text-[red] text-[17px] bg-white border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}> &#10071;{messageErrorInput}</p>
@@ -232,13 +262,13 @@ function Login() {
                                 className="relative w-full p-3 bg-gray-700 text-yellow-500 rounded font-bold overflow-hidden group"
                             >
                                 <span className="relative z-10 flex items-center justify-center">
-                                    Ingresar
+                                    Sign in
                                     <ArrowRight size={20} className="ml-2" />
                                 </span>
                                 <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-500 transition-all duration-300 group-hover:h-full"></span>
                                 <span className="absolute bottom-0 left-0 w-full h-0 bg-yellow-400 transition-all duration-500 delay-100 group-hover:h-full"></span>
                             </button>
-                            <p className="text-sm text-center text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">¿Olvidaste tu contraseña?</p>
+                            {/* <p className="text-sm text-center text-gray-400 hover:text-white transition-colors duration-200 cursor-pointer">¿Olvidaste tu contraseña?</p> */}
                         </form>
                     ) : (
                         ""
