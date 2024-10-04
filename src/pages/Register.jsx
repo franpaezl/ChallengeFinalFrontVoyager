@@ -1,10 +1,14 @@
-import React from 'react'
-import { ArrowRight,X } from 'lucide-react'
+import React, { useState } from 'react'
+import { ArrowRight, X } from 'lucide-react'
 import { motion } from 'framer-motion'
 import { Link } from 'react-router-dom'
+import { use } from 'framer-motion/client'
+import PopUpAlert from '../components/PopUpAlert'
+import axios from 'axios'
 
 function Register() {
 
+    //--------------------------------------Efectos visuales
     const inputVariants = {
         hidden: { y: -20, opacity: 0 },
         visible: {
@@ -29,6 +33,192 @@ function Register() {
             }
         }
     }
+    //--------------------------------------Efectos visuales
+
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [firstCel, setFirstCel] = useState("")
+    const [secondCel, setSecondCel] = useState("")
+
+    const [showPopUpAlert, setShowPopUpAlert] = useState('hidden')
+    const [messageShowPopUpAlert, setMessageShowPopUpAlert] = useState('')
+    const [gif, setGif] = useState('')
+    const [link, setLink] = useState('')
+
+    const [showInputFirstName, setShowInputFirstName] = useState('hidden')
+    const [showInputLastName, setShowInputLastName] = useState('hidden')
+    const [showInputEmail, setShowInputEmail] = useState('hidden')
+    const [showInputPassword, setShowInputPassword] = useState('hidden')
+    const [showInputFirstCel, setShowInputFirstCel] = useState('hidden')
+    const [showInputSecondCel, setShowInputSecondCel] = useState('hidden')
+
+    const [colorErrorInputFirstName, setColorErrorInputFirstName] = useState('')
+    const [colorErrorInputLastName, setColorErrorInputLastName] = useState('')
+    const [colorErrorInputEmail, setColorErrorInputEmail] = useState('')
+    const [colorErrorInputPassword, setColorErrorInputPassword] = useState('')
+    const [colorErrorInputFirstCel, setColorErrorInputFirstCel] = useState('')
+    const [colorErrorInputSecondCel, setColorErrorInputSecondCel] = useState('')
+
+    const [messageErrorInput, setMessageErrorInput] = useState('')
+
+
+    function validarSoloNumeros(str) {
+        // Expresión regular para verificar que solo contenga números
+        const regex = /^[0-9]+$/;
+
+        let containOnlyNumber = false;
+        if (regex.test(str)) {
+            console.log("El string es válido y contiene solo números.");
+            containOnlyNumber = true;
+            return true;
+        } else {
+            console.error("Error: El string contiene caracteres no numéricos.");
+            containOnlyNumber = false;
+            return false;
+        }
+    }
+
+
+    const handleRegister = async (event) => {
+        event.preventDefault();
+
+
+        let firstCelAux = ""
+        let secondCelAux = ""
+
+        if (messageErrorInput == "") {
+            firstCelAux = firstCel;
+            secondCelAux = secondCel;
+        }
+
+        const user = {
+            firstName: firstName,
+            lastName: lastName,
+            email: email,
+            phoneNumbers: [firstCelAux, secondCelAux],
+            password: password,
+
+            // firstCel: firstCel,
+            // secondCel: secondCel,
+        };
+
+
+        console.log(user);
+        console.log("-----------------" + firstName);
+        console.log("-----------------" + lastName);
+        console.log("-----------------" + email);
+        console.log("-----------------" + password);
+        console.log("-----------------" + firstCel);
+        console.log("-----------------" + secondCel);
+
+        try {
+            const response = await axios.post(
+                "http://localhost:8080/api/auth/register",
+                user
+            );
+            console.log(response.data);
+            setMessageShowPopUpAlert(response.data)
+            setGif(checkGif)
+            setShowPopUpAlert('')
+            setLink('/login')
+        } catch (error) {
+            setMessageErrorInput('')
+            setShowInputFirstName('hidden')
+            setColorErrorInputFirstName('')
+            setShowInputLastName('hidden')
+            setColorErrorInputLastName('')
+            setShowInputEmail('hidden')
+            setColorErrorInputEmail('')
+            setShowInputPassword('hidden')
+            setColorErrorInputPassword('')
+            setShowInputFirstCel('hidden')
+            setColorErrorInputFirstCel('')
+            setShowInputSecondCel('hidden')
+            setColorErrorInputSecondCel('')
+            console.error(error.response ? error.response.data : error.message);
+            let errorMessage = error.response ? error.response.data : error.message;
+            if (errorMessage.includes("First name") || errorMessage.includes("first name")) {
+                setMessageErrorInput(errorMessage)
+                setShowInputFirstName('')
+                setColorErrorInputFirstName('border-2  border-[red]')
+            }
+            if (errorMessage.includes("Last name") || errorMessage.includes("last name")) {
+                setMessageErrorInput(errorMessage)
+                setShowInputLastName('')
+                setColorErrorInputLastName('border-2  border-[red]')
+            }
+            if (errorMessage.includes("Email") || errorMessage.includes("email")) {
+                setMessageErrorInput(errorMessage)
+                setShowInputEmail('')
+                setColorErrorInputEmail('border-2  border-[red]')
+            }
+            if (errorMessage.includes("Password") || errorMessage.includes("password")) {
+                setMessageErrorInput(errorMessage)
+                setShowInputPassword('')
+                setColorErrorInputPassword('border-2  border-[red]')
+            }
+            if (firstName !== "" && lastName !== "" && email !== "" && !errorMessage.includes('Password') && firstCel == "") {
+                console.log("primer validacion firstcel")
+                setMessageErrorInput('Please provide first phone number.')
+                setShowInputFirstCel('')
+                setColorErrorInputFirstCel('border-2  border-[red]')
+            }
+            if (firstName !== "" && lastName !== "" && email !== "" && password !== "" && firstCel !== "" && firstCel.length !== 10) {
+                console.log("segunda validacion firstcel")
+                setMessageErrorInput('Invalid phone number. It must contain 10 characters.')
+                setShowInputFirstCel('')
+                setColorErrorInputFirstCel('border-2  border-[red]')
+            }
+            if (firstCel !== "") {
+                if (!validarSoloNumeros(firstCel)) {
+                    console.log("Entra?")
+                    console.log("tercera validacion firstcel")
+                    setMessageErrorInput('Please just enter numbers.')
+                    setShowInputFirstCel('')
+                    setColorErrorInputFirstCel('border-2  border-[red]')
+                }
+            }
+
+
+            if (firstName !== "" && lastName !== "" && email !== "" && password !== "" && firstCel !== "" && secondCel == "" && firstCel.length == 10 && validarSoloNumeros(firstCel)) {
+                setMessageErrorInput('Please provide second phone number.')
+                setShowInputSecondCel('')
+                setColorErrorInputSecondCel('border-2  border-[red]')
+            }
+            if (firstName !== "" && lastName !== "" && email !== "" && password !== "" && firstCel !== "" && secondCel !== "" && secondCel.length !== 10) {
+                setMessageErrorInput('Invalid phone number. It must contain 10 characters.')
+                setShowInputSecondCel('')
+                setColorErrorInputSecondCel('border-2  border-[red]')
+            }
+            if (secondCel != "") {
+                if (!validarSoloNumeros(secondCel)) {
+                    console.log("Entra?")
+                    setMessageErrorInput('Please just enter numbers.')
+                    setShowInputSecondCel('')
+                    setColorErrorInputSecondCel('border-2  border-[red]')
+                }
+            }
+            if (firstCel == secondCel) {
+
+                console.log("Entra?")
+                setMessageErrorInput('Both phone numbers can not be equals.')
+                setShowInputSecondCel('')
+                setColorErrorInputSecondCel('border-2  border-[red]')
+
+            }
+
+        }
+    };
+
+
+    const handleOnClickPopAupAlert = (e) => {
+        setShowPopUpAlert('hidden')
+    }
+
+
+
     return (
 
         <div className="flex items-center justify-center min-h-screen bg-gray-900">
@@ -51,18 +241,18 @@ function Register() {
                     Registrate en VOYAGER
                 </motion.h1>
                 <Link to="/login" >
-                <motion.p
-                    className="text-center text-gray-400 mb-6"
-                    variants={inputVariants}
-                >
-                    <span className="mr-1">¿Ya tenes una cuenta?</span>
-                    <button
-                        // onClick={onSwitchToLogin}
-                        className="text-yellow-500 hover:text-yellow-400 transition-colors duration-200"
+                    <motion.p
+                        className="text-center text-gray-400 mb-6"
+                        variants={inputVariants}
                     >
-                        Ingresá
-                    </button>
-                </motion.p>
+                        <span className="mr-1">¿Ya tenes una cuenta?</span>
+                        <button
+                            // onClick={onSwitchToLogin}
+                            className="text-yellow-500 hover:text-yellow-400 transition-colors duration-200"
+                        >
+                            Ingresá
+                        </button>
+                    </motion.p>
                 </Link>
                 <motion.button
                     whileHover={{ scale: 1.1 }}
@@ -70,25 +260,77 @@ function Register() {
                     className="absolute  right-[350px] top-[100px] text-gray-400 hover:text-white transition-colors duration-200"
                 >
                     <Link to="/">
-                    <X size={24} />
+                        <X size={24} />
                     </Link>
                 </motion.button>
-                <form className="space-y-4">
+                <form onSubmit={handleRegister} className="space-y-4 relative z-0">
                     <div className="grid grid-cols-2 gap-4">
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
                             type="text"
                             placeholder="Name"
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                            className={`${colorErrorInputFirstName} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={firstName}
+                            onChange={(e) => {
+                                setFirstName(e.target.value)
+                                setColorErrorInputFirstName('')
+                                setShowInputFirstName('hidden')
+                            }}
                         />
+                        <p className={`${showInputFirstName} absolute z-10 top-[20%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
                             type="text"
-                            placeholder="LastName"
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                            placeholder="Last Name"
+                            className={`${colorErrorInputLastName} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={lastName}
+                            onChange={(e) => {
+                                setLastName(e.target.value)
+                                setColorErrorInputLastName('')
+                                setShowInputLastName('hidden')
+                            }}
                         />
+                        <p className={`${showInputLastName} absolute z-10 top-[20%] left-[51%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
+                    </div>
+                    <div className="grid grid-cols-2 gap-4 ">
+                        <motion.input
+                            variants={inputVariants}
+                            whileFocus="focus"
+                            type="text"
+                            placeholder="Email"
+                            className={`${colorErrorInputEmail} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={email}
+                            onChange={(e) => {
+                                setEmail(e.target.value)
+                                setColorErrorInputEmail('')
+                                setShowInputEmail('hidden')
+                            }}
+                        />
+                        <p className={`${showInputEmail} absolute z-10 top-[46%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
+                        <motion.input
+                            variants={inputVariants}
+                            whileFocus="focus"
+                            type="password"
+                            placeholder="Password"
+                            className={`${colorErrorInputPassword} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={password}
+                            onChange={(e) => {
+                                setPassword(e.target.value)
+                                setColorErrorInputPassword('')
+                                setShowInputPassword('hidden')
+                            }}
+                        />
+                        <p className={`${showInputPassword} absolute z-10 top-[46%] left-[51%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
                     </div>
                     <div className="grid grid-cols-2 gap-4">
                         <motion.input
@@ -96,31 +338,34 @@ function Register() {
                             whileFocus="focus"
                             type="cel"
                             placeholder="Cel "
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                            className={`${colorErrorInputFirstCel} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={firstCel}
+                            onChange={(e) => {
+                                setFirstCel(e.target.value)
+                                setColorErrorInputFirstCel('')
+                                setShowInputFirstCel('hidden')
+                            }}
                         />
+                        <p className={`${showInputFirstCel} absolute z-10 top-[73%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
                         <motion.input
                             variants={inputVariants}
                             whileFocus="focus"
                             type="cel"
-                            placeholder="Extras Cel"
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
+                            placeholder="Extra Cel"
+                            className={`${colorErrorInputSecondCel} w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none`}
+                            value={secondCel}
+                            onChange={(e) => {
+                                setSecondCel(e.target.value)
+                                setColorErrorInputSecondCel('')
+                                setShowInputSecondCel('hidden')
+
+                            }}
                         />
-                    </div>
-                    <div className="grid grid-cols-2 gap-4">
-                        <motion.input
-                            variants={inputVariants}
-                            whileFocus="focus"
-                            type="email"
-                            placeholder="Email"
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
-                        />
-                        <motion.input
-                            variants={inputVariants}
-                            whileFocus="focus"
-                            type="password"
-                            placeholder="Password"
-                            className="w-full p-3 bg-gray-700 text-white rounded transition-all duration-200 focus:ring-2 focus:ring-yellow-500 focus:outline-none"
-                        />
+                        <p className={`${showInputSecondCel} absolute z-10 top-[73%] left-[51%] text-[red] bg-[white] text-[17px] border-[3px] border-yellow-500 inline-block rounded-[10px] px-[8px] mt-[5px]`}>
+                            &#10071; {messageErrorInput}
+                        </p>
                     </div>
                     <motion.button
                         variants={inputVariants}
@@ -140,6 +385,11 @@ function Register() {
           }
         `}</style>
             </motion.div>
+
+            <div className={`${showPopUpAlert}`}>
+                <PopUpAlert gif={gif} message={messageShowPopUpAlert} link={link} handleOnClick={handleOnClickPopAupAlert} />
+            </div>
+
         </div>
     )
 }

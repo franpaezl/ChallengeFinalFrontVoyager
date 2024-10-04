@@ -32,17 +32,8 @@ function Login() {
     const [messageErrorInput, setMessageErrorInput] = useState("");
 
 
-
-
     const [activeTab, setActiveTab] = useState('login')
-    // const {status, isLoggedIn, error, token} = useSelector((state) => state.auth)
-    // console.log(status, isLoggedIn, error, token)
-
     const navigate = useNavigate();
-
-
-
-
 
 
     const inputVariants = {
