@@ -11,7 +11,6 @@ import checkGif from "../assets/checkGif.gif"
 
 
 function Register() {
-    
 
     //--------------------------------------Efectos visuales
     const inputVariants = {
@@ -38,7 +37,6 @@ function Register() {
             },
         },
     };
-
 
     //--------------------------------------Efectos visuales
 
